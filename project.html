@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المشروع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="main-nav glass-effect">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="images/zizo.png" alt="Logo Colored" class="colored">
+                    <img src="images/o.png" alt="Logo White" class="white">
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <div class="project-hero">
+        <div class="container">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                العودة للرئيسية
+            </a>
+        </div>
+    </div>
+
+    <main class="project-details">
+        <div class="container">
+            <div id="projectContent" class="project-content">
+                <!-- معلومات المشروع الأساسية -->
+                <div class="project-header glass-effect">
+                    <h1 class="project-title"></h1>
+                    <div class="project-meta">
+                        <span class="project-category"></span>
+                        <span class="project-date"></span>
+                    </div>
+                </div>
+
+                <!-- معرض الصور -->
+                <div class="project-gallery glass-effect">
+                    <div class="main-image-container">
+                        <img src="" alt="" class="main-image">
+                        <button class="zoom-btn">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                    </div>
+                    <div class="thumbnails-container">
+                        <button class="nav-btn prev">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="thumbnails-scroll"></div>
+                        <button class="nav-btn next">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- تفاصيل المشروع -->
+                <div class="project-info glass-effect">
+                    <div class="info-section">
+                        <h2>وصف المشروع</h2>
+                        <div class="project-description"></div>
+                    </div>
+
+                    <div class="info-section">
+                        <h2>التقنيات المستخدمة</h2>
+                        <div class="tech-tags"></div>
+                    </div>
+
+                    <div class="project-actions">
+                        <div id="projectUrl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- عارض الصور المكبر -->
+    <div id="imageViewer" class="image-viewer">
+        <button class="close-viewer">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="prev-image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="viewer-content">
+            <img src="" alt="">
+        </div>
+        <button class="next-image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="project.js"></script>
+</body>
+</html>

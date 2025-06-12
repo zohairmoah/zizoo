@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /project.html
+Allow: /images/
+
+Sitemap: https://YOUR-DOMAIN.com/sitemap.xml
+
+Disallow: /dashboard.html
+Disallow: /server.js
+Disallow: /storage.js

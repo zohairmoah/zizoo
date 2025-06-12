@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - إدارة المشاريع</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+</head>
+<body>
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <h2>تسجيل الدخول للوحة التحكم</h2>
+            <div id="googleBtn" class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="login-instructions">
+                <h3>كيفية تسجيل الدخول:</h3>
+                <ol>
+                    <li>انقر على زر "تسجيل الدخول بحساب Google" أعلاه</li>
+                    <li>اختر حساب Google الخاص بك</li>
+                    <li>اسمح للتطبيق بالوصول عند الطلب</li>
+                    <li>سيتم تحويلك تلقائياً إلى لوحة التحكم</li>
+                </ol>
+                <p>* في حال واجهت أي مشكلة، يرجى التأكد من تسجيل دخولك في حساب Google أولاً</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="dashboard" class="dashboard hidden">
+        <header class="dashboard-header">
+            <h1>لوحة التحكم</h1>
+            <div class="user-info">
+                <img id="userImage" src="images/zizo.png" alt="صورة المستخدم">
+                <a href="#" id="userNameLink" class="user-name-link"><span id="userName"></span></a>
+                <button onclick="signOut()" class="sign-out-btn">تسجيل الخروج</button>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- قسم إضافة المشروع الجديد -->
+            <section class="add-project-section">
+                <h2>إضافة مشروع جديد</h2>
+                <!-- عند تعبئة هذا النموذج وإرساله، سيظهر المشروع في قسم "المشاريع الحالية" أدناه -->
+                <form id="addProjectForm" class="project-form">
+                    <div class="form-group">
+                        <label for="projectTitle">عنوان المشروع</label>
+                        <input type="text" id="projectTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectCategory">التصنيف</label>
+                        <select id="projectCategory" required>
+                            <option value="تطوير الويب">تطوير الويب</option>
+                            <option value="تطبيقات الموبايل">تطبيقات الموبايل</option>
+                            <option value="تطبيقات سطح المكتب">تطبيقات سطح المكتب</option>
+                            <option value="تصميم جرافيك">تصميم جرافيك</option>
+                            <option value="موشن جرافيك">موشن جرافيك</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">وصف مختصر</label>
+                        <textarea id="projectDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectFullDescription">وصف كامل</label>
+                        <textarea id="projectFullDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectTechnologies">التقنيات المستخدمة (مفصولة بفواصل)</label>
+                        <input type="text" id="projectTechnologies" placeholder="مثال: React, Node.js, MongoDB">
+                    </div>                    <div class="form-group">
+                        <label for="projectImages">صور المشروع (يمكنك اختيار عدة صور)</label>
+                        <input type="file" id="projectImages" accept="image/*" multiple required>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="projectUrl">رابط المشروع (اختياري)</label>
+                        <input type="url" id="projectUrl" placeholder="https://...">
+                    </div>
+                    
+                    <!-- إضافة قسم معاينة المشروع قبل الإضافة -->
+                    <div class="preview-section">
+                        <h3>معاينة المشروع</h3>
+                        <div class="project-preview">
+                            <div class="preview-card">
+                                <img id="previewImage" src="images/zizo.png" alt="معاينة صورة المشروع">
+                                <h4 id="previewTitle"></h4>
+                                <p id="previewDescription"></p>
+                                <div id="previewTechnologies" class="preview-tech"></div>
+                            </div>
+                        </div>
+                        <p class="preview-note">* سيظهر المشروع بهذا الشكل في الصفحة الرئيسية</p>
+                    </div>
+
+                    <button type="submit" class="submit-btn">إضافة المشروع</button>
+                </form>
+            </section>
+
+            <!-- قسم عرض المشاريع المضافة -->
+            <section class="projects-list-section">
+                <h2>المشاريع الحالية</h2>
+                <div class="projects-actions">
+                    <input type="file" id="importProjects" accept=".json" style="display: none;">
+                    <button onclick="document.getElementById('importProjects').click()" class="import-btn">
+                        <i class="fas fa-file-import"></i>
+                        استيراد المشاريع
+                    </button>
+                    <button onclick="exportProjects()" class="export-btn">
+                        <i class="fas fa-file-export"></i>
+                        تصدير المشاريع
+                    </button>
+                </div>
+                <p class="projects-note">* المشاريع المضافة ستظهر هنا وفي الصفحة الرئيسية مباشرة</p>
+                <div id="projectsList" class="projects-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

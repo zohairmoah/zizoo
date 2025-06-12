@@ -1,0 +1,23 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "منصة تعليم إلكتروني",
+      "category": "تطوير الويب",
+      "description": "منصة تعليمية متكاملة مع نظام إدارة المحتوى وتتبع تقدم الطلاب",
+      "fullDescription": "وصف تفصيلي للمشروع...",
+      "technologies": ["React", "Node.js", "MongoDB"],
+      "features": [
+        "نظام إدارة المحتوى",
+        "تتبع تقدم الطلاب",
+        "منتدى للنقاش"
+      ],
+      "images": [
+        "/globe.svg",
+        "project1-1.jpg",
+        "project1-2.jpg"
+      ],
+      "year": "2023"
+    }
+  ]
+}
