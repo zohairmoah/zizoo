@@ -270,7 +270,7 @@ async function editProject(id) {
 window.onload = () => {
     gapi.load('auth2', () => {
         gapi.auth2.init({
-            client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+            client_id: '375217149185-5j13yqi2pq38ip3a0uv1ry6p2a3dtoul.apps.googleusercontent.com'
         });
     });
 };
