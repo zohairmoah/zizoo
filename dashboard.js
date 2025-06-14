@@ -4,7 +4,7 @@ let projects = [];
 
 // التحقق من البريد الإلكتروني المسموح به
 function isAllowedEmail(email) {
-    const allowedEmail = 'zizoalzohairy@gmail.com';
+    const allowedEmail = 'zohairalzohairt711@gmail.com';
     return email === allowedEmail;
 }
 
@@ -32,7 +32,7 @@ function onSignIn(googleUser) {
         loadProjects();
     } else {
         signOut();
-        alert('عذراً، فقط البريد الإلكتروني zizoalzohairy@gmail.com مسموح له بالدخول');
+        alert('عذراً، فقط البريد الإلكتروني zohairalzohairt711@gmail.comمسموح له بالدخول');
     }
 }
 
@@ -127,7 +127,7 @@ document.getElementById('addProjectForm').addEventListener('submit', async (e) =
         return;
     }
 
-    if (!currentUser.email === 'zizoalzohairy@gmail.com') {
+    if (currentUser.email !== 'zohairalzohairt711@gmail.com') {
         alert('عذراً، لا يمكنك إضافة مشاريع');
         return;
     }
@@ -219,7 +219,7 @@ function displayProjects() {
 
 // حذف مشروع
 async function deleteProject(id) {
-    if (!currentUser || currentUser.email !== 'zizoalzohairy@gmail.com') {
+    if (!currentUser || currentUser.email !== 'zohairalzohairt711@gmail.com') {
         alert('عذراً، لا يمكنك حذف المشاريع');
         return;
     }
@@ -267,10 +267,16 @@ async function editProject(id) {
 }
 
 // تحميل المشاريع عند بدء التطبيق
-window.onload = () => {
-    gapi.load('auth2', () => {
+window.onload = () => {    gapi.load('auth2', () => {
         gapi.auth2.init({
-            client_id: '375217149185-5j13yqi2pq38ip3a0uv1ry6p2a3dtoul.apps.googleusercontent.com'
+            client_id: '998760115997-q1oennkh78q2e6jobbr3s4846g9ohri4.apps.googleusercontent.com',
+            scope: 'profile email',
+            fetch_basic_profile: true,
+            cookiepolicy: 'single_host_origin'
+        }).then(() => {
+            console.log('Google Auth initialized successfully');
+        }).catch(error => {
+            console.error('Error initializing Google Auth:', error);
         });
     });
 };
