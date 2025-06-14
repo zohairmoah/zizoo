@@ -1,25 +1,10 @@
 class ProjectStorage {
     static STORAGE_KEY = 'portfolio_projects';
     
-    static encrypt(data) {
-        // يمكن إضافة تشفير بسيط هنا عند الحاجة
-        return btoa(JSON.stringify(data));
-    }
-    
-    static decrypt(data) {
-        // فك التشفير
-        try {
-            return JSON.parse(atob(data));
-        } catch {
-            return null;
-        }
-    }
-
     static getAllProjects() {
         try {
-            const encrypted = localStorage.getItem(this.STORAGE_KEY);
-            if (!encrypted) return [];
-            const projects = this.decrypt(encrypted) || [];
+            const projects = JSON.parse(localStorage.getItem(this.STORAGE_KEY)) || [];
+            return projects;
         } catch (error) {
             console.error('Error loading projects:', error);
             return [];
@@ -40,7 +25,7 @@ class ProjectStorage {
             }
             
             // حفظ في localStorage
-            this.saveProjects(projects);
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(projects));
             return true;
         } catch (error) {
             console.error('Error saving project:', error);
@@ -52,7 +37,7 @@ class ProjectStorage {
         try {
             let projects = this.getAllProjects();
             projects = projects.filter(p => p.id !== id);
-            this.saveProjects(projects);
+            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(projects));
             return true;
         } catch (error) {
             console.error('Error deleting project:', error);
@@ -88,15 +73,6 @@ class ProjectStorage {
     static saveProjects(projects) {
         try {
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(projects));
-
-            // حفظ نسخة احتياطية في ملف تلقائياً للتحميل
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(projects));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "portfolio_projects_backup.json");
-            downloadAnchor.click();
-            downloadAnchor.remove();
-
             return true;
         } catch (error) {
             console.error('Error saving projects:', error);
@@ -104,7 +80,7 @@ class ProjectStorage {
         }
     }
 
-    static importProjectsFromFile(jsonFile) {
+    static importProjectsFromFile(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -117,7 +93,7 @@ class ProjectStorage {
                 }
             };
             reader.onerror = (error) => reject(error);
-            reader.readAsText(jsonFile);
+            reader.readAsText(file);
         });
     }
 }
