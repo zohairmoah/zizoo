@@ -278,20 +278,23 @@ window.onload = () => {
     try {
         gapi.load('auth2', () => {
             gapi.auth2.init({
-            client_id: '998760115997-q1oennkh78q2e6jobbr3s4846g9ohri4.apps.googleusercontent.com',
-            scope: 'profile email',
-            fetch_basic_profile: true,
-            cookiepolicy: 'single_host_origin'
-        }).then(() => {
-            console.log('Google Auth initialized successfully');
-            // التحقق من حالة تسجيل الدخول عند تحميل الصفحة
-            const auth2 = gapi.auth2.getAuthInstance();
-            if (auth2.isSignedIn.get()) {
-                onSignIn(auth2.currentUser.get());
-            }
-        }).catch(error => {
-            console.error('Error initializing Google Auth:', error);
-            alert('حدث خطأ في تهيئة نظام تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+                client_id: '998760115997-q1oennkh78q2e6jobbr3s4846g9ohri4.apps.googleusercontent.com',
+                scope: 'profile email',
+                fetch_basic_profile: true,
+                cookiepolicy: 'single_host_origin'
+            }).then(() => {
+                console.log('Google Auth initialized successfully');
+                const auth2 = gapi.auth2.getAuthInstance();
+                if (auth2.isSignedIn.get()) {
+                    onSignIn(auth2.currentUser.get());
+                }
+            }).catch(error => {
+                console.error('Error initializing Google Auth:', error);
+                alert('حدث خطأ في تهيئة نظام تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+            });
         });
-    });
+    } catch (error) {
+        console.error('Error loading Google Auth:', error);
+        alert('حدث خطأ في تحميل نظام تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+    }
 };
